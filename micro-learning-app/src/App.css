@@ -1,0 +1,147 @@
+/* General App */
+.App {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background: #f0f4f8;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Login Card */
+.login-card {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 20px;
+}
+
+.login-card input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.login-card button {
+  padding: 10px 25px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #ffcc00;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card button:hover {
+  background: #ffdd33;
+  transform: translateY(-2px);
+}
+
+/* Topic Cards */
+.topic-card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.topic-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.topic-card h3 {
+  color: #2575fc;
+}
+
+.topic-card p {
+  color: #555;
+}
+
+.topic-card button {
+  margin-top: 10px;
+  padding: 8px 20px;
+  background: #6a11cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.topic-card button:hover {
+  background: #2575fc;
+  transform: translateY(-2px);
+}
+
+/* Study Material */
+iframe, img {
+  margin-top: 20px;
+  border-radius: 15px;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Test Buttons */
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Test Options */
+button {
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  background: #ffcc00;
+  color: #333;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #ffd633;
+  transform: translateY(-2px);
+}
+
+/* Summary */
+h2 {
+  color: #6a11cb;
+}
+
+ul li {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+/* Batches */
+a {
+  color: #2575fc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
