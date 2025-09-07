@@ -15,8 +15,7 @@
   background: linear-gradient(135deg, #3436bf, #2575fc);
   color: white;
   border-radius: 15px;
-  box-shadow: 0 8px 20px 
-  rgba(218, 13, 13, 0.2);
+  box-shadow: 0 8px 20px rgba(218, 13, 13, 0.2);
   text-align: center;
 }
 
@@ -127,7 +126,15 @@ button:hover {
   transform: translateY(-2px);
 }
 
-/* Summary */
+/* Summary Page */
+.summary-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
 h2 {
   color: #6a11cb;
 }
@@ -135,6 +142,23 @@ h2 {
 ul li {
   margin-bottom: 8px;
   color: #555;
+}
+
+/* Review Topic Links */
+ul li a {
+  color: #ff4d4d; /* Highlight review links */
+  font-weight: bold;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Reward text */
+p.reward {
+  color: #28a745; /* Green for reward */
+  font-weight: bold;
 }
 
 /* Batches */

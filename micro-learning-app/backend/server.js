@@ -1,12 +1,13 @@
+// server.js
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
 
+// ===== Sample Users =====
 let users = [
   { id: 1, name: "Shardul", email: "shardul@example.com", password: "aimerz" },
   { id: 2, name: "Demo", email: "demo@example.com", password: "demo" },
@@ -20,6 +21,7 @@ let users = [
   { id: 10, name: "Vikram", email: "vikram@gmail.com", password: "vikram222" }
 ];
 
+// ===== Topics & Questions =====
 let topics = [
   {
     id: 1,
@@ -27,7 +29,7 @@ let topics = [
     summary: "Learn components, state, and props",
     media: [
       { type: "video", url: "https://www.youtube.com/watch?v=Ke90Tje7VS0" },
-      { type: "image", url: "https://source.unsplash.com/random/400x200/?react" }
+      { type: "image", url: "https://pixabay.com/illustrations/quiz-exam-test-examination-student-1799935/" }
     ],
     questions: [
       { q: "React is a ___ library?", options: ["Backend", "Frontend", "Database"], answer: 1 },
@@ -43,7 +45,7 @@ let topics = [
     summary: "Learn variables, functions, loops in JS",
     media: [
       { type: "video", url: "https://www.youtube.com/watch?v=W6NZfCO5SIk" },
-      { type: "image", url: "https://www.google.com/imgres?q=meme%20on%20let%20vs%20const&imgurl=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FGODwpljboAA1HF7.png&imgrefurl=https%3A%2F%2Ftwitter.com%2Fjherr%2Fstatus%2F1792697258213003643&docid=a8VMZjHf4G33EM&tbnid=XRsbzxd5c04j4M&vet=12ahUKEwi7xdC5sMSPAxXf8DgGHTctMvQQM3oECBwQAA..i&w=828&h=471&hcb=2&itg=1&ved=2ahUKEwi7xdC5sMSPAxXf8DgGHTctMvQQM3oECBwQAA" }
+      { type: "image", url: "https://source.unsplash.com/random/400x200/?javascript" }
     ],
     questions: [
       { q: "JS stands for?", options: ["JavaScript", "Java Style", "Just Script"], answer: 0 },
@@ -87,6 +89,7 @@ let topics = [
   }
 ];
 
+// ===== User Batches =====
 let userBatches = {
   1: [
     { topic: "React Basics", status: "Completed", certificate: "https://example.com/react-cert.pdf" },
@@ -94,7 +97,7 @@ let userBatches = {
   ]
 };
 
-// Login
+// ===== Login Route =====
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
   const user = users.find(u => u.email === email && u.password === password);
@@ -102,18 +105,18 @@ app.post("/api/login", (req, res) => {
   else res.json({ success: false, message: "Invalid credentials" });
 });
 
-// Get topics
+// ===== Get All Topics =====
 app.get("/api/topics", (req, res) => {
   res.json(topics);
 });
 
-// Get batches
+// ===== Get User Batches =====
 app.get("/api/user/:id/batches", (req, res) => {
   const userId = req.params.id;
   res.json(userBatches[userId] || []);
 });
 
-// Submit test
+// ===== Submit Quiz/Test =====
 app.post("/api/user/:id/submit-test", (req, res) => {
   const userId = req.params.id;
   const { topicId, answers } = req.body;
@@ -121,17 +124,28 @@ app.post("/api/user/:id/submit-test", (req, res) => {
   if (!topic) return res.status(400).json({ error: "Topic not found" });
 
   let score = 0;
+  let wrongQuestions = [];
+
   topic.questions.forEach((q, idx) => {
     if (answers[idx] === q.answer) score++;
+    else {
+      wrongQuestions.push({
+        question: q.q,
+        correctAnswer: q.options[q.answer],
+        topicLink: `/topics/${topicId}`
+      });
+    }
   });
 
+  // Update user batch if passed
   const batch = userBatches[userId]?.find(b => b.topic === topic.title);
   if (batch && score >= 3) {
     batch.status = "Completed";
-    batch.certificate = `https://example.com/${topic.title.replace(" ", "-")}-cert.pdf`;
+    batch.certificate = `https://example.com/${topic.title.replace(/ /g, "-")}-cert.pdf`;
   }
 
-  res.json({ score, reward: score >= 3 ? "Mystery Box" : null });
+  res.json({ score, wrongQuestions, reward: score >= 3 ? "Mystery Box" : null });
 });
 
+// ===== Start Server =====
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

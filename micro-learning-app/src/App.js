@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
@@ -42,6 +43,10 @@ function App() {
           setUser({ id: data.userId, name: data.name });
           setPage("list");
           setLoginError("");
+          // Fetch user batches immediately
+          fetch(`http://localhost:5000/api/user/${data.userId}/batches`)
+            .then(res => res.json())
+            .then(batchData => setBatches(batchData));
         } else setLoginError(data.message);
       });
   };
@@ -76,9 +81,10 @@ function App() {
       .then(data => {
         setScore(data.score);
         setPage("summary");
+        // Update batches after test submission
         fetch(`http://localhost:5000/api/user/${user.id}/batches`)
           .then(res => res.json())
-          .then(data => setBatches(data));
+          .then(batchData => setBatches(batchData));
       });
   };
 
@@ -92,6 +98,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* Login Page */}
       {!user && page === "login" && (
         <div className="login-card">
           <h2>Login</h2>
@@ -102,6 +109,7 @@ function App() {
         </div>
       )}
 
+      {/* Topics List */}
       {user && page === "list" && (
         <div>
           <h1>Topics / Exams</h1>
@@ -118,14 +126,25 @@ function App() {
         </div>
       )}
 
+      {/* Study Material */}
       {page === "content" && currentTopic && (
         <div>
           <h2>{currentTopic.title} - Study Material</h2>
           {currentTopic.media[currentMediaIndex].type === "video" ? (
-            <iframe width="560" height="315" src={convertToEmbedUrl(currentTopic.media[currentMediaIndex].url)}
-              title="YouTube video" frameBorder="0" allowFullScreen></iframe>
+            <iframe
+              width="560"
+              height="315"
+              src={convertToEmbedUrl(currentTopic.media[currentMediaIndex].url)}
+              title="YouTube video"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
           ) : (
-            <img src={currentTopic.media[currentMediaIndex].url} alt="media" style={{ maxWidth: "100%", height: "auto" }} />
+            <img
+              src={currentTopic.media[currentMediaIndex].url}
+              alt="media"
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
           )}
           <button style={{ marginTop: "20px" }} onClick={nextMedia}>
             {currentMediaIndex < currentTopic.media.length - 1 ? "Next" : "Go to Test"}
@@ -133,6 +152,7 @@ function App() {
         </div>
       )}
 
+      {/* Test Page */}
       {page === "test" && currentTopic && (
         <div>
           <h2>{currentTopic.title} - Test</h2>
@@ -140,7 +160,13 @@ function App() {
             <div key={idx} style={{ marginBottom: "15px" }}>
               <p>{idx + 1}. {q.q}</p>
               {q.options.map((opt, i) => (
-                <button key={i} onClick={() => selectAnswer(idx, i)} style={{ background: answers[idx] === i ? "lightgreen" : "", marginRight: "10px" }}>{opt}</button>
+                <button
+                  key={i}
+                  onClick={() => selectAnswer(idx, i)}
+                  style={{ background: answers[idx] === i ? "lightgreen" : "", marginRight: "10px" }}
+                >
+                  {opt}
+                </button>
               ))}
             </div>
           ))}
@@ -148,17 +174,33 @@ function App() {
         </div>
       )}
 
+      {/* Summary Page */}
       {page === "summary" && currentTopic && (
         <div>
           <h2>{currentTopic.title} - Summary</h2>
           <p>Score: {score} / {currentTopic.questions.length}</p>
           {score >= 3 ? <p>🎉 You earned a Mystery Box!</p> : <p>Keep practicing to earn rewards.</p>}
+
           <h3>Improvement Points:</h3>
-          <ul>{currentTopic.questions.map((q, idx) => answers[idx] !== q.answer ? <li key={idx}>{q.q}</li> : null)}</ul>
+          <ul>
+            {currentTopic.questions.map((q, idx) => {
+              if (answers[idx] !== q.answer) {
+                const topicLink = `/topics/${currentTopic.id}`; // Review link
+                return (
+                  <li key={idx}>
+                    {q.q} - <a href={topicLink}>Review Topic</a>
+                  </li>
+                );
+              }
+              return null;
+            })}
+          </ul>
+
           <button onClick={resetAll} style={{ marginTop: "20px" }}>Back to Topics</button>
         </div>
       )}
 
+      {/* Batches Page */}
       {page === "batches" && (
         <div>
           <h2>My Batches & Certificates</h2>
@@ -169,7 +211,8 @@ function App() {
                 <p>Status: {b.status}</p>
                 {b.certificate && <a href={b.certificate} target="_blank" rel="noreferrer">View Certificate</a>}
               </div>
-            ))}
+            ))
+          }
           <button style={{ marginTop: "20px" }} onClick={resetAll}>Back to Topics</button>
         </div>
       )}
@@ -178,4 +221,3 @@ function App() {
 }
 
 export default App;
-// Note: This is a simplified version focusing on core functionality. In a production app, consider better state management, routing, and styling.
