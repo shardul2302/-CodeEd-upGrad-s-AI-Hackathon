@@ -12,10 +12,11 @@
   max-width: 400px;
   margin: 50px auto;
   padding: 30px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #3436bf, #2575fc);
   color: white;
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px 
+  rgba(218, 13, 13, 0.2);
   text-align: center;
 }
 

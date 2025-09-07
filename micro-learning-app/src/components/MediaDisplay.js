@@ -1,11 +1,11 @@
-
 import React from "react";
 
 function MediaDisplay({ mediaUrl }) {
   if (!mediaUrl) return <p>No media available</p>;
 
-  // Check if it's YouTube link
   const isYouTube = mediaUrl.includes("youtube.com") || mediaUrl.includes("youtu.be");
+  const isImage = /\.(jpeg|jpg|png|gif|svg)$/i.test(mediaUrl);
+  const isPDF = /\.pdf$/i.test(mediaUrl);
 
   const embedUrl = isYouTube ? convertToEmbedUrl(mediaUrl) : null;
 
@@ -21,12 +21,22 @@ function MediaDisplay({ mediaUrl }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
-      ) : (
+      ) : isImage ? (
         <img
           src={mediaUrl}
           alt="Displayed content"
           style={{ maxWidth: "100%", height: "auto" }}
         />
+      ) : isPDF ? (
+        <iframe
+          src={mediaUrl}
+          title="PDF Viewer"
+          width="100%"
+          height="600px"
+          style={{ border: "none" }}
+        />
+      ) : (
+        <p>Cannot display this media type</p>
       )}
     </div>
   );
@@ -47,4 +57,3 @@ function convertToEmbedUrl(url) {
 }
 
 export default MediaDisplay;
-// Note: This component currently supports YouTube links and image URLs. For other video sources, additional handling may be needed.

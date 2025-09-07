@@ -27,7 +27,7 @@ let topics = [
     summary: "Learn components, state, and props",
     media: [
       { type: "video", url: "https://www.youtube.com/watch?v=Ke90Tje7VS0" },
-      { type: "image", url: "https://via.placeholder.com/400x200.png?text=React" }
+      { type: "image", url: "https://source.unsplash.com/random/400x200/?react" }
     ],
     questions: [
       { q: "React is a ___ library?", options: ["Backend", "Frontend", "Database"], answer: 1 },
@@ -43,7 +43,7 @@ let topics = [
     summary: "Learn variables, functions, loops in JS",
     media: [
       { type: "video", url: "https://www.youtube.com/watch?v=W6NZfCO5SIk" },
-      { type: "image", url: "https://via.placeholder.com/400x200.png?text=JS+Variables" }
+      { type: "image", url: "https://www.google.com/imgres?q=meme%20on%20let%20vs%20const&imgurl=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FGODwpljboAA1HF7.png&imgrefurl=https%3A%2F%2Ftwitter.com%2Fjherr%2Fstatus%2F1792697258213003643&docid=a8VMZjHf4G33EM&tbnid=XRsbzxd5c04j4M&vet=12ahUKEwi7xdC5sMSPAxXf8DgGHTctMvQQM3oECBwQAA..i&w=828&h=471&hcb=2&itg=1&ved=2ahUKEwi7xdC5sMSPAxXf8DgGHTctMvQQM3oECBwQAA" }
     ],
     questions: [
       { q: "JS stands for?", options: ["JavaScript", "Java Style", "Just Script"], answer: 0 },
@@ -51,6 +51,38 @@ let topics = [
       { q: "Function defined by ___?", options: ["func", "function", "def"], answer: 1 },
       { q: "Strict equality symbol?", options: ["==", "===", "="], answer: 1 },
       { q: "JS is ___ typed?", options: ["Strongly", "Weakly", "Both"], answer: 1 }
+    ]
+  },
+  {
+    id: 3,
+    title: "Node.js Basics",
+    summary: "Understand event loop, modules, and npm",
+    media: [
+      { type: "video", url: "https://www.youtube.com/watch?v=TlB_eWDSMt4" },
+      { type: "image", url: "https://source.unsplash.com/random/400x200/?nodejs" }
+    ],
+    questions: [
+      { q: "Node.js is built on ___?", options: ["Java", "V8 Engine", "Python"], answer: 1 },
+      { q: "Which command initializes npm?", options: ["npm start", "npm init", "node init"], answer: 1 },
+      { q: "Which module handles server?", options: ["http", "fs", "os"], answer: 0 },
+      { q: "npm stands for?", options: ["Node Package Manager", "New Project Module", "None"], answer: 0 },
+      { q: "Which method reads file sync?", options: ["fs.readFile", "fs.readFileSync", "readFileNow"], answer: 1 }
+    ]
+  },
+  {
+    id: 4,
+    title: "MongoDB Basics",
+    summary: "Learn collections, documents, and queries",
+    media: [
+      { type: "video", url: "https://www.youtube.com/watch?v=-56x56UppqQ" },
+      { type: "image", url: "https://source.unsplash.com/random/400x200/?mongodb" }
+    ],
+    questions: [
+      { q: "MongoDB stores data as ___?", options: ["Tables", "Documents", "Arrays"], answer: 1 },
+      { q: "Default port of MongoDB?", options: ["3306", "27017", "8080"], answer: 1 },
+      { q: "Command to show DBs?", options: ["show databases", "list dbs", "dbs"], answer: 0 },
+      { q: "Which method inserts one document?", options: ["insert", "insertOne", "insertDoc"], answer: 1 },
+      { q: "Which company owns MongoDB?", options: ["Google", "MongoDB Inc.", "Microsoft"], answer: 1 }
     ]
   }
 ];
@@ -89,7 +121,9 @@ app.post("/api/user/:id/submit-test", (req, res) => {
   if (!topic) return res.status(400).json({ error: "Topic not found" });
 
   let score = 0;
-  topic.questions.forEach((q, idx) => { if (answers[idx] === q.answer) score++; });
+  topic.questions.forEach((q, idx) => {
+    if (answers[idx] === q.answer) score++;
+  });
 
   const batch = userBatches[userId]?.find(b => b.topic === topic.title);
   if (batch && score >= 3) {
