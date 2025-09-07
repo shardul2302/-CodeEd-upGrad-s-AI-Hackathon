@@ -47,9 +47,6 @@ Based on the Topic Quick Assessment
 Test Summary 
 <img width="693" height="900" alt="image" src="https://github.com/user-attachments/assets/46a45473-a51c-4181-87a4-48897b9e38ed" />
 
- Certificates & Badges 
+Certificates & Badges 
 <img width="706" height="950" alt="image" src="https://github.com/user-attachments/assets/0507c2e5-a4d0-4f6c-a6e9-a80678fb5032" />
 
-
- 
->>>>>>> 2b61d0a2c814ce361eb1060aa86c34834e954134
