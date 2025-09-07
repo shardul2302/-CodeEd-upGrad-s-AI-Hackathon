@@ -1,11 +1,36 @@
-<<<<<<< HEAD
 
-=======
 # CodeEd-upGrad-s-AI-Hackathon
 
+
 🔑 Demo Credentials
-You can use the following credentials to test the platform:
-NameEmailPasswordShardulshardul@example.comaimerzDemodemo@example.comdemoRiyariya@example.comriya123
+
+Use the following demo accounts to test the platform:
+
+Name: Shardul
+Email: shardul@example.com
+Password: aimerz
+
+Name: Demo
+Email: demo@example.com
+Password: demo
+
+Name: Riya
+Email: riya@example.com
+Password: riya123
+
+🚀 Key Features
+
+🔐 Secure Login System
+
+🏫 Student Dashboard with progress tracking
+
+📚 Study Materials organized by topics
+
+⚡ Quick Assessments after each topic
+
+📊 Test Summary Reports with wrong Quetions solution
+
+🏅 Certificates & Badges for motivation
 
  Login Page
 <img width="1879" height="941" alt="image" src="https://github.com/user-attachments/assets/b9e70ad0-5e66-4e0e-9f73-9df731132608" />
